@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1"> -->   
+    <meta property="og:title" content="ShareTube" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ShareTube" />
+    <meta property="og:url" content="http://www.sharetube.io/#menu"/>
+    <meta property="og:image" content="http://s23.postimg.org/xjux9bwyj/Screen_Shot_2016_01_12_at_11_14_41_PM.png"/>
+    <meta property="og:description" content="Share, watch, and talk about videos with friends as they stream, synced to the second." />
+    <title>ShareTube</title>
+    <link rel="stylesheet"  href="css/style.css" />
+    
+    <script>window.location.hash = '#menu'</script>
+    <script src="js/jquery.js"></script>
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">\x3C/script>')</script>
+    <!---TUBULAR for displaying videos in background for index page -->
+    <script src="http://www.seanmccambridge.com/tubular/js/jquery.tubular.1.0.js"></script> 
+    <script>
+     $("document").ready(function() { 
+
+      var options = {  videoId: "<%=vid%>", 
+                       start: 0, 
+                       repeat: true
+                    };  
+      
+        $('#tubular-container').tubular(options); 
+      }); 
+    </script>
+</head>
+<body>
+
+<div id="backgroundImg">
+<div id="tubular-container" style="overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%">
+
+    <% if (roomName) {%>
+    <div id="RoomTag"><h3 style="font-weight:300;color:white"><em>playing in room '<%=roomName%>'</em><h3></div>
+    <% }%>
+    <!-- Login page -->
+    <div id="login">
+        <div id="login-header">
+            <b><h1 style="font-weight:700;font-size:1000%">ShareTube</h1></b>
+            <div id="login-copy">
+                <p style="font-size:200%">Perfectly synced videos to share, watch, and talk about with your friends. Join thousands of users who've watched <%= totalVideoCount %> videos.</p>
+                <p></p>
+            </div>
+            <br>
+            <% if (message) { %>
+              <% if (message.error) { %>
+                <div id="loginErrMessage"><em><%= message.error %></em></div>
+              <% } %>
+            <% } %>
+            <br>
+        </div>
+
+        <div id= "button-list">
+            <form action="/make_room" method="get">
+                <input id="indexInput" type="text" name="room-name" class="room-name" placeholder="Room name" autofocus required><br>
+                <input id="makeRoom" type="submit" value="Make a room" formaction="/make_room">
+                <input id="joinRoom" type="submit" value="Join a room" formaction="/join_room">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72257533-1', 'auto');
+  ga('send', 'pageview');
+</script>

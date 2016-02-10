@@ -1,0 +1,35 @@
+{
+    "name": "HDMovies",
+    "version": "0.0.1",
+    "description": "This app allows people to chat anonymously with their Facebook friends.",
+    "main": "web.js",
+    "private": true,
+    "scripts": {
+        "start": "node server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wkim1/HDmovies.git"
+    },
+    "author": {
+        "kunalvsh": "https://github.com/kunalvsh/",
+        "vincenttian": "https://github.com/vincenttian",
+        "wkim1": "https://github.com/wkim1"
+    },
+    "dependencies": {
+        "amazon-product-api": "*",
+        "connect-flash": "*",
+        "express": "3.1.0",
+        "ejs": "*",
+        "step": "0.0.5",
+        "mongodb": "*",
+        "mongoose": "*",
+        "request": "2.36.0",
+        "socket.io": "1.0.4",
+        "step": "0.0.5",
+        "throng": "1.0.0"
+    },
+    "engines": {
+        "node": "0.10.28"
+    }
+}

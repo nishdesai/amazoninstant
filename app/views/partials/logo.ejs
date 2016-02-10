@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<h1 style="font-size:400%">
+	<b>
+	<a href="/">Amazon Instant</a>
+	</b>
+		<input type="text" id="url" placeholder="Search here for amazon products" value="" onkeyup="getProducts()">
+		<input type="submit" id="submitURL" onsubmit="getProductsNoCheck()">
+	<div id="videoResults">
+    </div>
+</h1>
+
+</html>
+
+<script>
+function getProducts() {
+	var query = document.getElementById('url').value;
+	if (query[query.length-1] == " ") {
+		console.log('request made because of space bar');
+		if (query.replace(/ /g,'') != "") {
+			$.ajax({
+		      url: '/amazon_query',
+		      type: 'POST',
+		      cache: true, 
+		      data: {query: query}, 
+		      success: function(data){
+		      	document.getElementById('videoResults').innerHTML=data;
+		      }, 
+		      error: function(jqXHR, textStatus, err){}
+		   })
+		}
+	}
+}
+
+$(document).keypress(function (e) {
+    if (e.which == 13 || e.keyCode == 13) {
+        getProductsNoCheck();
+    }
+});
+
+function getProductsNoCheck() {
+	console.log('called here!');
+	var query = document.getElementById('url').value;
+	if (query.replace(/ /g,'') != "") {
+		$.ajax({
+	      url: '/amazon_query',
+	      type: 'POST',
+	      cache: true, 
+	      data: {query: query}, 
+	      success: function(data){
+	      	document.getElementById('videoResults').innerHTML=data;
+	      }, 
+	      error: function(jqXHR, textStatus, err){}
+	   })
+	}
+}
+</script>

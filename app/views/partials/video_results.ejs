@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+
+<% if (results) { %>
+	<% for (var i=0; i<results.length; i++) { %>
+	    <div class="videoResult">
+	    	<a href=<%=results[i].url%> target="_blank">
+		    	<div class="thumbnailImg"><img src=<%= results[i]['image_url'] %> class="videoImg"></div><br>
+		    	<div class="videoTitle">
+		    		<%= results[i].title %><br>
+		    	</div>
+		    	<%= results[i].brand %><br>
+		    	<%= results[i].description %><br>
+		    	<%= results[i].price %><br>
+	    	</a>
+		</div>
+	<% }%>
+<% } %>
+
+</html>
