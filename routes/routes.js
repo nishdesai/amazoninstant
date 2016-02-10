@@ -1,11 +1,21 @@
 module.exports = function(app, io) {
 
 	// var User = require('../app/models/user');
-	var secrets = require('../secrets');
+
+	var secretId;
+	var secretSecret;
+	if (process.env.secret) { // config vars
+		secretId = process.env.id;
+		secretSecret = process.env.secret;
+	} else { // local
+		var secrets = require('../secrets');
+		secretId = secrets.Id;
+		secretSecret = secrets.secret;
+	}
 	amazon = require('amazon-product-api');
 	var client = amazon.createClient({
-	  awsId: secrets.Id,
-	  awsSecret: secrets.secret,
+	  awsId: secretId,
+	  awsSecret: secretSecret,
 	  awsTag: "awsTagAmazonInstant"
 	});
 
