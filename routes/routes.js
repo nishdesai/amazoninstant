@@ -45,41 +45,45 @@ module.exports = function(app, io) {
 		  responseGroup: 'ItemAttributes,Offers,Images'
 		}, function(err, results, response) {
 		  if (err) console.log(err);
-		  all_products = [];
-		  for (var i=0; i<results.length; i++) {
-		  	var product = results[i];
-		  	var productObject = {};
-		  	productObject['url'] = product.DetailPageURL[0];
-		  	if (product.LargeImage) {
-		  		productObject['image_url'] = product.LargeImage[0].URL[0];
-		  	} else if (product.MediumImage) {
-		  		productObject['image_url'] = product.MediumImage[0].URL[0];
-		  	} else if (product.SmallImage) {
-		  		productObject['image_url'] = product.SmallImage[0].URL[0];
-		  	}
-		  	var productAttributes = product.ItemAttributes[0];
-		  	if (product.OfferSummary) {
-		  		var productPrice = product.OfferSummary[0];
-			  	if (productPrice.LowestNewPrice) {
-			  		productObject['price'] = product.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
-			  	} else if (productPrice.LowestUsedPrice) {
-			  		productObject['price'] = product.OfferSummary[0].LowestUsedPrice[0].FormattedPrice[0];
-			  	} else if (productPrice.LowestCollectiblePrice) {
-			  		productObject['price'] = product.OfferSummary[0].LowestCollectiblePrice[0].FormattedPrice[0];
+		  if (results) {
+			  all_products = [];
+			  for (var i=0; i<results.length; i++) {
+			  	var product = results[i];
+			  	var productObject = {};
+			  	var chart = "http://charts.camelcamelcamel.com/us/" + product.ASIN + "/amazon.png?force=1&zero=0&w=725&h=440&desired=false&legend=1&ilt=1&tp=1m&fo=0&lang=en"
+			  	productObject['chart'] = chart;
+			  	productObject['url'] = product.DetailPageURL[0];
+			  	if (product.LargeImage) {
+			  		productObject['image_url'] = product.LargeImage[0].URL[0];
+			  	} else if (product.MediumImage) {
+			  		productObject['image_url'] = product.MediumImage[0].URL[0];
+			  	} else if (product.SmallImage) {
+			  		productObject['image_url'] = product.SmallImage[0].URL[0];
 			  	}
-			}
-		  	productObject['brand'] = productAttributes.Brand;
-		  	productObject['description'] = productAttributes.Feature;
-		  	productObject['group'] = productAttributes.ProductGroup;
-		  	productObject['type_name'] = productAttributes.ProductTypeName;
-		  	productObject['title'] = productAttributes.Title;
-		  	all_products.push(productObject);
+			  	var productAttributes = product.ItemAttributes[0];
+			  	if (product.OfferSummary) {
+			  		var productPrice = product.OfferSummary[0];
+				  	if (productPrice.LowestNewPrice) {
+				  		productObject['price'] = product.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
+				  	} else if (productPrice.LowestUsedPrice) {
+				  		productObject['price'] = product.OfferSummary[0].LowestUsedPrice[0].FormattedPrice[0];
+				  	} else if (productPrice.LowestCollectiblePrice) {
+				  		productObject['price'] = product.OfferSummary[0].LowestCollectiblePrice[0].FormattedPrice[0];
+				  	}
+				}
+			  	productObject['brand'] = productAttributes.Brand;
+			  	productObject['description'] = productAttributes.Feature;
+			  	productObject['group'] = productAttributes.ProductGroup;
+			  	productObject['type_name'] = productAttributes.ProductTypeName;
+			  	productObject['title'] = productAttributes.Title;
+			  	all_products.push(productObject);
+			  }
+			  // console.log(all_products);
+			  // console.log(all_products.length);
+			  res.render('../partials/video_results.ejs', {
+				results: all_products
+			  });
 		  }
-		  // console.log(all_products);
-		  // console.log(all_products.length);
-		  res.render('../partials/video_results.ejs', {
-			results: all_products
-		  });
 		});
     })
 
