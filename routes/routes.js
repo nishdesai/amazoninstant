@@ -65,8 +65,8 @@ module.exports = function(app, io) {
 		  	productObject['title'] = productAttributes.Title;
 		  	all_products.push(productObject);
 		  }
-		  console.log(all_products);
-		  console.log(all_products.length);
+		  // console.log(all_products);
+		  // console.log(all_products.length);
 		  res.render('../partials/video_results.ejs', {
 			results: all_products
 		  });

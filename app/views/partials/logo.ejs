@@ -13,10 +13,18 @@
 </html>
 
 <script>
+var lastTypeTime;
 function getProducts() {
 	var query = document.getElementById('url').value;
+	lastTypeTime = new Date();
+	var currTime = lastTypeTime;
+	setTimeout( function() { 
+		if (currTime == lastTypeTime && 
+			new Date() - lastTypeTime > 1500) {
+			getProductsNoCheck();
+		}
+	}, 1500);
 	if (query[query.length-1] == " ") {
-		console.log('request made because of space bar');
 		if (query.replace(/ /g,'') != "") {
 			$.ajax({
 		      url: '/amazon_query',
