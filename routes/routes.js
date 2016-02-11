@@ -16,7 +16,7 @@ module.exports = function(app, io) {
 	var client = amazon.createClient({
 	  awsId: secretId,
 	  awsSecret: secretSecret,
-	  awsTag: "awsTagAmazonInstant"
+	  awsTag: "amazinst00-20"
 	});
 
 	require('../app/websockets/chat_handler')(io);
